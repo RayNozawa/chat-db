@@ -15,23 +15,23 @@ let file = '/tmp/chat.json'
 
 let currentIp = "1.1.1.1";
 
-axios.get("https://r-nozawa-cloud.hf.space/uploads/chat.json", { responseType: 'stream' })
+axios.get("https://r-nozawa-cloud.hf.space/uploads/chat.json", { responseType: 'text' })
   .then(response => {
-    const writer = fs.createWriteStream(file);
-    response.data.pipe(writer);
+    const rawData = response.data;
 
-    writer.on('finish', () => {
-      console.log('File berhasil disimpan');
-    });
+    try {
+      const json = JSON.parse(rawData); // validasi isi
 
-    writer.on('error', (error) => {
-      console.error('Error menyimpan file:', error);
-    });
+      fs.writeFileSync(file, JSON.stringify(json, null, 2)); // tulis ulang agar rapi
+      console.log('File JSON valid dan berhasil disimpan');
+    } catch (err) {
+      console.warn('File bukan JSON valid, tidak disimpan:', err.message);
+    }
   })
   .catch(error => {
-    console.error('Error mengunduh file:', error);
+    console.error('Gagal mengunduh file:', error.message);
   });
-  
+
 app.use(cors());
 
 const limiter = rateLimit({
