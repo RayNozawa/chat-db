@@ -9,9 +9,9 @@ const rateLimit = require('express-rate-limit');
 const app = express();
 const PORT = process.env.PORT || 7860;
 
-let file = path.join(__dirname, 'chat.json');
-fs.writeFileSync('/tmp/chat.json', fs.readFileSync(file));
-file = '/tmp/chat.json'
+let awal = path.join(__dirname, 'chat.json');
+fs.writeFileSync('/tmp/chat.json', fs.readFileSync(awal));
+let file = '/tmp/chat.json'
 
 let currentIp = "1.1.1.1";
 
