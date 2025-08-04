@@ -84,7 +84,7 @@ app.get('/send', limiter, async (req, res) => {
     res.json({ success: true });
     await uploadChat(fs.readFileSync(file))
   } catch (err) {
-    res.status(500).json({ error: 'Internal Server Error' });
+    res.status(500).json({ error: e.message });
   }
 });
 
