@@ -88,7 +88,7 @@ app.get('/send', limiter, async (req, res) => {
       console.log("error upload")
     }
   } catch (err) {
-    res.status(500).json({ error: e.message });
+    res.status(500).json({ error: err.message });
   }
 });
 
