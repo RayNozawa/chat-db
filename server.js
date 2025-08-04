@@ -82,7 +82,11 @@ app.get('/send', limiter, async (req, res) => {
 
     fs.writeFileSync(file, JSON.stringify(messages, null, 2));
     res.json({ success: true });
-    await uploadChat(fs.readFileSync(file))
+    try {
+      await uploadChat(fs.readFileSync(file))
+    } catch (e) {
+      console.log("error upload")
+    }
   } catch (err) {
     res.status(500).json({ error: e.message });
   }
